@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:physics_app/inputvolume.dart';
 
 import './result.dart';
-import './input.dart';
+import './inputarea.dart';
 
 class PhysicsPage extends StatefulWidget {
   @override

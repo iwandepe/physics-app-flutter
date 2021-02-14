@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './login.dart';
-import './dashboard.dart';
+// import './dashboard.dart';
+import './conversion.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
       ),
       // home: HomePage(),
       // home: Login(),
-      home: PhysicsPage(),
+      // home: PhysicsPage(),
+      home: ConversionPage(),
     );
   }
 }
