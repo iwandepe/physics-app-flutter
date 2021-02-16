@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import './login.dart';
 // import './dashboard.dart';
 import './conversion.dart';
+import './menu.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,10 +17,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: HomePage(),
+      home: HomePage(),
       // home: Login(),
       // home: PhysicsPage(),
-      home: ConversionPage(),
+      // home: ConversionPage(),
+      // home: MenuPage(),
     );
   }
 }
@@ -40,14 +42,14 @@ class HomePage extends StatelessWidget {
             SizedBox(
               height: 200,
             ),
-            Text("Welcome to Flutter",
+            Text("Welcome to Physics App",
                 style: TextStyle(color: Colors.white, fontSize: 22)),
             SizedBox(
               height: 10,
             ),
-            Text("Get real-time updates about what",
+            Text("Lets do conversion and calculate physics",
                 style: TextStyle(color: Colors.white, fontSize: 18)),
-            Text("maters to you",
+            Text("on this app",
                 style: TextStyle(color: Colors.white, fontSize: 18)),
             SizedBox(
               height: 20,

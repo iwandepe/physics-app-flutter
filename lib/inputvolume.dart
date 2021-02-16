@@ -25,183 +25,190 @@ class InputVolume extends StatelessWidget {
       // Area Form
       child: Form(
         key: volumeFormKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            // Text login
-            Text(
-              'Input',
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-
-            // Row for input length
-            Row(
-              children: [
-                // Label form length
-                Container(
-                  margin: EdgeInsets.only(left: 20),
-                  width: MediaQuery.of(context).size.width * 0.15,
-                  child: Text(
-                    'Length',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-
-                // Input Form length
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // Text login
+                  Text(
+                    'Input',
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
-                    padding: EdgeInsets.only(left: 10, right: 10),
-                    margin: EdgeInsets.only(right: 20),
-                    child: TextFormField(
-                      controller: lengthController,
-                      style: TextStyle(fontSize: 16),
-                      decoration: InputDecoration(
-                        hintText: "Input length",
+                  ),
+
+                  // Row for input length
+                  Row(
+                    children: [
+                      // Label form length
+                      Container(
+                        margin: EdgeInsets.only(left: 20),
+                        width: MediaQuery.of(context).size.width * 0.15,
+                        child: Text(
+                          'Length',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Length cannot be empty';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
 
-            // Row for input width
-            Row(
-              children: [
-                // Label input width
-                Container(
-                  margin: EdgeInsets.only(
-                    left: 20,
+                      // Input Form length
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            color: Colors.white,
+                          ),
+                          padding: EdgeInsets.only(left: 10, right: 10),
+                          margin: EdgeInsets.only(right: 20),
+                          child: TextFormField(
+                            controller: lengthController,
+                            style: TextStyle(fontSize: 16),
+                            decoration: InputDecoration(
+                              hintText: "Input length",
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Length cannot be empty';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  width: MediaQuery.of(context).size.width * 0.15,
-                  child: Text(
-                    'Width',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
 
-                // Form input width
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      color: Colors.white,
-                    ),
+                  // Row for input width
+                  Row(
+                    children: [
+                      // Label input width
+                      Container(
+                        margin: EdgeInsets.only(
+                          left: 20,
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.15,
+                        child: Text(
+                          'Width',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+
+                      // Form input width
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            color: Colors.white,
+                          ),
+                          padding: EdgeInsets.only(
+                            left: 10,
+                            right: 10,
+                          ),
+                          margin: EdgeInsets.only(
+                            right: 20,
+                          ),
+                          child: TextFormField(
+                            controller: widthController,
+                            style: TextStyle(fontSize: 16),
+                            decoration: InputDecoration(
+                              hintText: "Input width",
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Width cannot be empty';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // Row for input height
+                  // Row for input width
+                  Row(
+                    children: [
+                      // Label input width
+                      Container(
+                        margin: EdgeInsets.only(
+                          left: 20,
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.15,
+                        child: Text(
+                          'Height',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+
+                      // Form input width
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            color: Colors.white,
+                          ),
+                          padding: EdgeInsets.only(
+                            left: 10,
+                            right: 10,
+                          ),
+                          margin: EdgeInsets.only(
+                            right: 20,
+                          ),
+                          child: TextFormField(
+                            controller: heightController,
+                            style: TextStyle(fontSize: 16),
+                            decoration: InputDecoration(
+                              hintText: "Input height",
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Height cannot be empty';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // Login button to calculate the result
+                  FlatButton(
                     padding: EdgeInsets.only(
-                      left: 10,
-                      right: 10,
+                      left: 60,
+                      right: 60,
+                      top: 20,
+                      bottom: 20,
                     ),
-                    margin: EdgeInsets.only(
-                      right: 20,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(90),
                     ),
-                    child: TextFormField(
-                      controller: widthController,
-                      style: TextStyle(fontSize: 16),
-                      decoration: InputDecoration(
-                        hintText: "Input width",
+                    color: Colors.white,
+                    child: Text(
+                      'Calculate',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
                       ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Width cannot be empty';
-                        }
-                        return null;
-                      },
                     ),
+                    onPressed: () {
+                      if (volumeFormKey.currentState.validate()) {
+                        int res = int.parse(lengthController.text) *
+                            int.parse(widthController.text) *
+                            int.parse(heightController.text);
+                        result(res);
+                      }
+                      print('Pressed');
+                    },
                   ),
-                ),
-              ],
-            ),
-
-            // Row for input height
-            // Row for input width
-            Row(
-              children: [
-                // Label input width
-                Container(
-                  margin: EdgeInsets.only(
-                    left: 20,
-                  ),
-                  width: MediaQuery.of(context).size.width * 0.15,
-                  child: Text(
-                    'Height',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-
-                // Form input width
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      color: Colors.white,
-                    ),
-                    padding: EdgeInsets.only(
-                      left: 10,
-                      right: 10,
-                    ),
-                    margin: EdgeInsets.only(
-                      right: 20,
-                    ),
-                    child: TextFormField(
-                      controller: heightController,
-                      style: TextStyle(fontSize: 16),
-                      decoration: InputDecoration(
-                        hintText: "Input height",
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Height cannot be empty';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-            // Login button to calculate the result
-            FlatButton(
-              padding: EdgeInsets.only(
-                left: 60,
-                right: 60,
-                top: 20,
-                bottom: 20,
+                ],
               ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(90),
-              ),
-              color: Colors.white,
-              child: Text(
-                'Calculate',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
-              onPressed: () {
-                if (volumeFormKey.currentState.validate()) {
-                  int res = int.parse(lengthController.text) *
-                      int.parse(widthController.text) *
-                      int.parse(heightController.text);
-                  result(res);
-                }
-                print('Pressed');
-              },
-            ),
+            )
           ],
         ),
       ),

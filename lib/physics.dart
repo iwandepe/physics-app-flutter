@@ -61,7 +61,8 @@ class _PhysicsPageState extends State<PhysicsPage> {
 
                 // Result
                 Result(
-                    result: _resultArea, visibilityResult: _visibilityResultArea),
+                    result: _resultArea,
+                    visibilityResult: _visibilityResultArea),
               ],
             ),
             Column(
@@ -76,7 +77,9 @@ class _PhysicsPageState extends State<PhysicsPage> {
 
                 // Result
                 Result(
-                    result: _resultVolume, visibilityResult: _visibilityResultVolume),
+                  result: _resultVolume,
+                  visibilityResult: _visibilityResultVolume,
+                ),
               ],
             ),
           ],

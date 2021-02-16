@@ -15,11 +15,25 @@ class _ConversionPageState extends State<ConversionPage> {
     'Hectometer',
     'Kilometer',
   ];
-  String _dropDownValue = 'Milimeter';
 
-  TextEditingController _unitOflengthController = new TextEditingController();
-  TextEditingController _unitOflengthConversionController =
-      new TextEditingController();
+  Map _mapValueUnitOfLength = {
+    'Milimeter': 1000000,
+    'Centimeter': 100000,
+    'Decimeter': 10000,
+    'Meter': 1000,
+    'Dekameter': 100,
+    'Hectometer': 10,
+    'Kilometer': 1,
+  };
+
+  String _dropDownValueTop = 'Milimeter';
+  String _dropDownValueBottom = 'Milimeter';
+  String _result = '0';
+
+  TextEditingController _unitOflengthControllerTop =
+      new TextEditingController(text: '0');
+  TextEditingController _unitOflengthConversionBottom =
+      new TextEditingController(text: '0');
 
   FocusNode _textFocus;
 
@@ -37,6 +51,34 @@ class _ConversionPageState extends State<ConversionPage> {
     super.dispose();
   }
 
+  void update(String value) {
+    if (value.isEmpty) {
+      value = '0';
+      print('value is null -> changed to 0');
+    }
+    print('value : \'$value\'');
+    _result = (double.parse(value) *
+            _mapValueUnitOfLength[_dropDownValueBottom] /
+            _mapValueUnitOfLength[_dropDownValueTop])
+        .toString();
+    setState(() {
+      _unitOflengthConversionBottom.text = _result;
+    });
+  }
+
+  void swap() {
+    setState(() {
+      TextEditingController _unitOflengthControllerTemp =
+          _unitOflengthControllerTop;
+      _unitOflengthControllerTop = _unitOflengthConversionBottom;
+      _unitOflengthConversionBottom = _unitOflengthControllerTemp;
+
+      String _dropDownValueTemp = _dropDownValueTop;
+      _dropDownValueTop = _dropDownValueBottom;
+      _dropDownValueBottom = _dropDownValueTemp;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,72 +88,96 @@ class _ConversionPageState extends State<ConversionPage> {
       body: Center(
         child: Column(
           children: [
+            // Block of top content
             Container(
               color: Colors.blue,
               height: MediaQuery.of(context).size.height / 2.15,
               width: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  DropdownButtonHideUnderline(
-                    child: DropdownButton(
-                      dropdownColor: Colors.black,
-                      value: _dropDownValue,
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                      icon: Icon(Icons.arrow_drop_down_sharp),
-                      iconEnabledColor: Colors.white,
-                      onChanged: (value) {
-                        setState(() {
-                          _dropDownValue = value;
-                        });
-                      },
-                      items: _listUnitOfLength.map((value) {
-                        return DropdownMenuItem(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
+              child: CustomScrollView(
+                slivers: [
+                  SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // Dropdown menu to pick unit of length type
+                        DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            dropdownColor: Colors.black,
+                            value: _dropDownValueTop,
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                            icon: Icon(Icons.arrow_drop_down_sharp),
+                            iconEnabledColor: Colors.white,
+                            onChanged: (value) {
+                              setState(() {
+                                _dropDownValueTop = value;
+                                update(_unitOflengthControllerTop.text);
+                              });
+                            },
+                            items: _listUnitOfLength.map((value) {
+                              return DropdownMenuItem(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+
+                        // Form to input number to convert
+                        Container(
+                          child: TextFormField(
+                            controller: _unitOflengthControllerTop,
+                            focusNode: _textFocus,
+                            textAlign: TextAlign.center,
+                            decoration:
+                                InputDecoration(border: InputBorder.none),
+                            cursorColor: Colors.white,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 120,
+                            ),
+                            onChanged: (text) {
+                              update(text);
+                            },
+                          ),
+                        ),
+
+                        // Object that linked to form field to
+                        // trigger focus mode with tapping it
+                        InkWell(
+                          child: Text(
+                            'Tap to change the value',
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                          onTap: () => _textFocus.requestFocus(),
+                        ),
+                      ],
                     ),
-                  ),
-                  Container(
-                    child: TextFormField(
-                      focusNode: _textFocus,
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(border: InputBorder.none),
-                      cursorColor: Colors.white,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 120,
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    child: Text(
-                      'Tap to change the value',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                    onTap: () => _textFocus.requestFocus(),
-                  ),
+                  )
                 ],
               ),
             ),
+
+            // Block of bottom content
             Expanded(
               child: Container(
                 color: Color(0xDDDDDDDDD),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    // Bottom Drop down menu
                     DropdownButtonHideUnderline(
                       child: DropdownButton(
                         dropdownColor: Colors.white,
-                        value: _dropDownValue,
+                        value: _dropDownValueBottom,
                         style: TextStyle(color: Colors.blue, fontSize: 20),
                         icon: Icon(Icons.arrow_drop_down_sharp),
                         iconEnabledColor: Colors.blue,
                         onChanged: (value) {
                           setState(() {
-                            _dropDownValue = value;
+                            _dropDownValueBottom = value;
+                            update(_unitOflengthControllerTop.text);
                           });
                         },
                         items: _listUnitOfLength.map((value) {
@@ -122,9 +188,13 @@ class _ConversionPageState extends State<ConversionPage> {
                         }).toList(),
                       ),
                     ),
+
+                    // Bottom form field to show result of conversion
+                    // Form field cannot receive input
                     Container(
                       child: TextFormField(
-                        focusNode: _textFocus,
+                        controller: _unitOflengthConversionBottom,
+                        readOnly: true,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(border: InputBorder.none),
                         cursorColor: Colors.blue,
@@ -135,18 +205,30 @@ class _ConversionPageState extends State<ConversionPage> {
                         ),
                       ),
                     ),
-                    // InkWell(
-                    //   child: Text(
-                    //     'Tap to change the value',
-                    //     style: TextStyle(color: Colors.blue, fontSize: 18),
-                    //   ),
-                      // onTap: () => _textFocus.requestFocus(),
-                    // ),
                   ],
                 ),
               ),
             ),
           ],
+        ),
+      ),
+
+      // FLoating button to swap value between top and bottom widget
+      floatingActionButton: Align(
+        alignment: Alignment.centerRight,
+        child: Container(
+          margin: EdgeInsets.only(top: 70),
+          width: 120,
+          height: 120,
+          child: FittedBox(
+            child: FloatingActionButton.extended(
+              backgroundColor: Colors.blueGrey,
+              onPressed: () {
+                swap();
+              },
+              label: Text('Swap'),
+            ),
+          ),
         ),
       ),
     );

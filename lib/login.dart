@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:physics_app/dashboard.dart';
 
-import './dashboard.dart';
+
+import './menu.dart';
 
 class Login extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
@@ -60,111 +60,122 @@ class Login extends StatelessWidget {
                     // Form
                     child: Form(
                       key: _formKey,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          // Text login
-                          Text(
-                            'Login',
-                            style: TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
 
-                          // Form email
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            margin: EdgeInsets.only(
-                              left: 20,
-                              right: 20,
-                            ),
-                            color: Colors.white,
-                            child: TextFormField(
-                              controller: _usernameController,
-                              style: TextStyle(fontSize: 20),
-                              decoration: InputDecoration(
-                                hintText: "Email",
-                                prefixIcon: Icon(Icons.email),
-                              ),
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'This field cannot empty';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
+                      // Widget to prevent bottom overflow
+                      // with applying scrollable page
+                      child: CustomScrollView(
+                        slivers: [
+                          SliverFillRemaining(
+                            hasScrollBody: false,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                // Text login
+                                Text(
+                                  'Login',
+                                  style: TextStyle(
+                                    fontSize: 40,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
 
-                          // Form password
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            margin: EdgeInsets.only(
-                              left: 20,
-                              right: 20,
-                            ),
-                            color: Colors.white,
-                            child: TextFormField(
-                              controller: _passwordController,
-                              style: TextStyle(fontSize: 20),
-                              decoration: InputDecoration(
-                                hintText: "Password",
-                                prefixIcon: Icon(Icons.lock),
-                              ),
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Password cannot be empty';
-                                } else if (value.length < 6) {
-                                  return 'Password cannot be less than 6 character';
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
+                                // Form email
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  margin: EdgeInsets.only(
+                                    left: 20,
+                                    right: 20,
+                                  ),
+                                  color: Colors.white,
+                                  child: TextFormField(
+                                    controller: _usernameController,
+                                    style: TextStyle(fontSize: 20),
+                                    decoration: InputDecoration(
+                                      hintText: "Email",
+                                      prefixIcon: Icon(Icons.email),
+                                    ),
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'This field cannot empty';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
 
-                          // Login button
-                          FlatButton(
-                            padding: EdgeInsets.only(
-                              left: 120,
-                              right: 120,
-                              top: 30,
-                              bottom: 30,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(90),
-                            ),
-                            color: Colors.blue,
-                            child: Text(
-                              'Login',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                            ),
-                            onPressed: () {
-                              if (_formKey.currentState.validate()) {
-                                // save the input
-                                _username = _usernameController.text;
-                                _password = _passwordController.text;
+                                // Form password
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  margin: EdgeInsets.only(
+                                    left: 20,
+                                    right: 20,
+                                  ),
+                                  color: Colors.white,
+                                  child: TextFormField(
+                                    controller: _passwordController,
+                                    style: TextStyle(fontSize: 20),
+                                    decoration: InputDecoration(
+                                      hintText: "Password",
+                                      prefixIcon: Icon(Icons.lock),
+                                    ),
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Password cannot be empty';
+                                      } else if (value.length < 6) {
+                                        return 'Password cannot be less than 6 character';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
 
-                                // autentication
-                                if (_username == 'iwan' &&
-                                    _password == 'iwandwiprakoso') {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => PhysicsPage()));
-                                } else {
-                                  Scaffold.of(context).showSnackBar(
-                                    SnackBar(
-                                        content:
-                                            Text('email or password is wrong')),
-                                  );
-                                }
-                              }
-                              print('Pressed');
-                            },
-                          ),
+                                // Login button
+                                FlatButton(
+                                  padding: EdgeInsets.only(
+                                    left: 120,
+                                    right: 120,
+                                    top: 30,
+                                    bottom: 30,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(90),
+                                  ),
+                                  color: Colors.blue,
+                                  child: Text(
+                                    'Login',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    if (_formKey.currentState.validate()) {
+                                      // save the input
+                                      _username = _usernameController.text;
+                                      _password = _passwordController.text;
+
+                                      // autentication
+                                      if (_username == 'iwan' &&
+                                          _password == 'iwandwiprakoso') {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MenuPage()));
+                                      } else {
+                                        Scaffold.of(context).showSnackBar(
+                                          SnackBar(
+                                              content: Text(
+                                                  'email or password is wrong')),
+                                        );
+                                      }
+                                    }
+                                    print('Pressed');
+                                  },
+                                ),
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     ),
