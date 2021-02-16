@@ -10,20 +10,20 @@ class PhysicsPage extends StatefulWidget {
 }
 
 class _PhysicsPageState extends State<PhysicsPage> {
-  int _resultArea;
+  double _resultArea;
   bool _visibilityResultArea = false;
 
-  set resultArea(int value) {
+  set resultArea(double value) {
     setState(() {
       _resultArea = value;
       _visibilityResultArea = true;
     });
   }
 
-  int _resultVolume;
+  double _resultVolume;
   bool _visibilityResultVolume = false;
 
-  set resultVolume(int value) {
+  set resultVolume(double value) {
     setState(() {
       _resultVolume = value;
       _visibilityResultVolume = true;
@@ -35,6 +35,7 @@ class _PhysicsPageState extends State<PhysicsPage> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text('Calculate Physics'),
           bottom: TabBar(
@@ -49,21 +50,23 @@ class _PhysicsPageState extends State<PhysicsPage> {
         body: TabBarView(
           children: [
             // Column contain Input and Result
-            Column(
-              children: [
-                // Input
-                InputArea(
-                  result: (val) => setState(() {
-                    _resultArea = val;
-                    _visibilityResultArea = true;
-                  }),
-                ),
+            Container(
+              child: Column(
+                children: [
+                  // Input
+                  InputArea(
+                    result: (val) => setState(() {
+                      _resultArea = val;
+                      _visibilityResultArea = true;
+                    }),
+                  ),
 
-                // Result
-                Result(
-                    result: _resultArea,
-                    visibilityResult: _visibilityResultArea),
-              ],
+                  // Result
+                  Result(
+                      result: _resultArea,
+                      visibilityResult: _visibilityResultArea),
+                ],
+              ),
             ),
             Column(
               children: [

@@ -86,17 +86,17 @@ class _ConversionPageState extends State<ConversionPage> {
         title: Text('Length Conversion'),
       ),
       body: Center(
-        child: Column(
-          children: [
-            // Block of top content
-            Container(
-              color: Colors.blue,
-              height: MediaQuery.of(context).size.height / 2.15,
-              width: double.infinity,
-              child: CustomScrollView(
-                slivers: [
-                  SliverFillRemaining(
-                    hasScrollBody: false,
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                children: [
+                  // Block of top content
+                  Container(
+                    color: Colors.blue,
+                    height: MediaQuery.of(context).size.height / 2.15,
+                    width: double.infinity,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -132,6 +132,7 @@ class _ConversionPageState extends State<ConversionPage> {
                             decoration:
                                 InputDecoration(border: InputBorder.none),
                             cursorColor: Colors.white,
+                            keyboardType: TextInputType.number,
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -154,61 +155,63 @@ class _ConversionPageState extends State<ConversionPage> {
                         ),
                       ],
                     ),
-                  )
+                  ),
+
+                  // Block of bottom content
+                  Expanded(
+                    child: Container(
+                      color: Color(0xDDDDDDDDD),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // Bottom Drop down menu
+                          DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                              dropdownColor: Colors.white,
+                              value: _dropDownValueBottom,
+                              style:
+                                  TextStyle(color: Colors.blue, fontSize: 20),
+                              icon: Icon(Icons.arrow_drop_down_sharp),
+                              iconEnabledColor: Colors.blue,
+                              onChanged: (value) {
+                                setState(() {
+                                  _dropDownValueBottom = value;
+                                  update(_unitOflengthControllerTop.text);
+                                });
+                              },
+                              items: _listUnitOfLength.map((value) {
+                                return DropdownMenuItem(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+
+                          // Bottom form field to show result of conversion
+                          // Form field cannot receive input
+                          Container(
+                            child: TextFormField(
+                              controller: _unitOflengthConversionBottom,
+                              readOnly: true,
+                              textAlign: TextAlign.center,
+                              decoration:
+                                  InputDecoration(border: InputBorder.none),
+                              cursorColor: Colors.blue,
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 120,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
-
-            // Block of bottom content
-            Expanded(
-              child: Container(
-                color: Color(0xDDDDDDDDD),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Bottom Drop down menu
-                    DropdownButtonHideUnderline(
-                      child: DropdownButton(
-                        dropdownColor: Colors.white,
-                        value: _dropDownValueBottom,
-                        style: TextStyle(color: Colors.blue, fontSize: 20),
-                        icon: Icon(Icons.arrow_drop_down_sharp),
-                        iconEnabledColor: Colors.blue,
-                        onChanged: (value) {
-                          setState(() {
-                            _dropDownValueBottom = value;
-                            update(_unitOflengthControllerTop.text);
-                          });
-                        },
-                        items: _listUnitOfLength.map((value) {
-                          return DropdownMenuItem(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-
-                    // Bottom form field to show result of conversion
-                    // Form field cannot receive input
-                    Container(
-                      child: TextFormField(
-                        controller: _unitOflengthConversionBottom,
-                        readOnly: true,
-                        textAlign: TextAlign.center,
-                        decoration: InputDecoration(border: InputBorder.none),
-                        cursorColor: Colors.blue,
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 120,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            )
           ],
         ),
       ),
@@ -217,7 +220,7 @@ class _ConversionPageState extends State<ConversionPage> {
       floatingActionButton: Align(
         alignment: Alignment.centerRight,
         child: Container(
-          margin: EdgeInsets.only(top: 70),
+          margin: EdgeInsets.only(top: 120),
           width: 120,
           height: 120,
           child: FittedBox(

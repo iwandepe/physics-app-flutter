@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Result extends StatelessWidget {
-  final int result;
+  final double result;
   final bool visibilityResult;
 
   Result({this.result, this.visibilityResult});
