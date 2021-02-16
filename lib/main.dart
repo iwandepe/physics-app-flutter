@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import './login.dart';
-// import './dashboard.dart';
-import './conversion.dart';
-import './menu.dart';
 
 void main() {
   runApp(MyApp());

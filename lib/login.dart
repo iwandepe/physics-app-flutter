@@ -91,8 +91,8 @@ class Login extends StatelessWidget {
                                     controller: _usernameController,
                                     style: TextStyle(fontSize: 20),
                                     decoration: InputDecoration(
-                                      hintText: "Email",
-                                      prefixIcon: Icon(Icons.email),
+                                      hintText: "username",
+                                      prefixIcon: Icon(Icons.person),
                                     ),
                                     validator: (value) {
                                       if (value.isEmpty) {
@@ -155,8 +155,8 @@ class Login extends StatelessWidget {
                                       _password = _passwordController.text;
 
                                       // autentication
-                                      if (_username == 'iwan' &&
-                                          _password == 'iwandwiprakoso') {
+                                      if (_username == 'udacodingid' &&
+                                          _password == 'udacodingJaya2021') {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
